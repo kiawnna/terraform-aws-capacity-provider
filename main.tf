@@ -1,4 +1,4 @@
-resource "aws_ecs_capacity_provider" "test" {
+resource "aws_ecs_capacity_provider" "capacity_provider" {
   name               = "${var.environment}-cap-provider"
 
   auto_scaling_group_provider {
@@ -10,5 +10,10 @@ resource "aws_ecs_capacity_provider" "test" {
       status                    = var.status
       target_capacity           = var.target_capacity
     }
+  }
+  tags = {
+    Name = "shared-${var.environment}-cap-provider"
+    Deployment_Method = "terraform"
+    Environment = var.environment
   }
 }
